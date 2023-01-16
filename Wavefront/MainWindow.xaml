@@ -6,12 +6,6 @@
         xmlns:local="clr-namespace:Wavefront"
         mc:Ignorable="d"
         Title="Wavefront Interview Tom Salisbury" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="181*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="219*"/>
-        </Grid.ColumnDefinitions>
-
-    </Grid>
+    <List>
+    </List>
 </Window>

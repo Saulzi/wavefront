@@ -9,9 +9,10 @@ namespace Wavefront
     {
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
+            var sensors = Wavefront.AUV.API.AUVSensorsFactory.Build();
 
+            MainWindow mainWindow = new MainWindow(sensors);
+            mainWindow.Show();
         }
     }
 }

@@ -7,4 +7,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="Wavefront.AUV.API">
+      <HintPath>..\Wavefront.AUV.API.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
