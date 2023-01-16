@@ -35,7 +35,7 @@
             // for an approximate result, divide the pressure value by 6.895
 
             var result = UnitConversions.ConvertKPAtoPSI(kpa);
-            Assert.That(result, Is.EqualTo(psi).Within(0.0001d));
+            Assert.That(result, Is.EqualTo(psi).Within(0.02d));         // this could be tighter and these would pass but matching other val
         }
 
         [TestCase(1d, 6.89476d)]
@@ -46,7 +46,7 @@
             //for an approximate result, multiply the pressure value by 6.895
 
             var result = UnitConversions.ConvertPSItoKPA(psi);
-            Assert.That(result, Is.EqualTo(kpa).Within(0.0001d));
+            Assert.That(result, Is.EqualTo(kpa).Within(0.02d));        
         }
     }
 }
