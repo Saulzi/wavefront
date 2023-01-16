@@ -16,7 +16,7 @@
             <ColumnDefinition Width="0.5*" />
         </Grid.ColumnDefinitions>
         <Label Content="" />
-        <Label Grid.Row="0" Grid.Column="0" Content="0.5x" />
-        <Label Grid.Row="1" Grid.Column="0" Content="0.5x" />
+        <Label Grid.Row="0" Grid.Column="0" Content="{Binding}" />
+        <Label Grid.Row="1" Grid.Column="0" Content="{Binding Path=SensorId}" />
     </Grid>
 </UserControl>
