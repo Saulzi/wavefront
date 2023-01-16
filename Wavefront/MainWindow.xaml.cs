@@ -23,6 +23,8 @@ namespace Wavefront
     {
         public MainWindow(IList<IAUVSensor> sensors)
         {
+            this.DataContext = sensors ?? throw new ArgumentNullException(nameof (sensors));    
+
             InitializeComponent();
         }
     }

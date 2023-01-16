@@ -1,5 +1,6 @@
 ﻿namespace Wavefront.Tests
 {
+    [TestFixture]
     internal class MainWindowTests
     {
         /// <summary>
