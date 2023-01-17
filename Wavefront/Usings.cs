@@ -1,0 +1,1 @@
+﻿global using Wavefront.AUV.API.Interface;

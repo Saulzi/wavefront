@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:Wavefront"
         mc:Ignorable="d"
         Title="Wavefront Interview Tom Salisbury" Height="450" Width="800">
-    <ListView ItemsSource="{Binding}">
-        <ListView.ItemTemplate>
+    <ItemsControl ItemsSource="{Binding}">
+        <ItemsControl.ItemTemplate>
             <DataTemplate>
                 <local:Sensor />
             </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
 </Window>
