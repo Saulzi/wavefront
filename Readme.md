@@ -3,7 +3,7 @@
 Simple user stories which 
 need to be implemented by the AUV monitoring application 
 
- - [ ] As a user I want to use simple AUV sensors monitoring application so I can check the 
+ - [x] As a user I want to use simple AUV sensors monitoring application so I can check the 
 temperature and pressure readings while the AUV is in operation. 
  
 - [x] As a user I want to see a list of AUV sensors so I can monitor the temperature and pressure 
