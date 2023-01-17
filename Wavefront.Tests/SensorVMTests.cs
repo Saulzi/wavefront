@@ -1,11 +1,11 @@
 ﻿namespace Wavefront.Tests
 {
-    class SensorViewTests
+    class SensorVMTests
     {
         [Test]
         public void SensorView_ctor_ThrowsNullArgumentExceptionWhenSensorIsNull()
         {
-            Assert.That(() => new SensorView(null), Throws.ArgumentNullException);
+            Assert.That(() => new SensorVM(null), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -13,31 +13,43 @@
         {
             var sensor = A.Fake<IAUVSensor>();
             A.CallTo(() => sensor.GetTemperature()).Returns(10d);
-            var itemUnderTest = new SensorView(sensor);
+            var itemUnderTest = new SensorVM(sensor);
 
             Assert.That(itemUnderTest.Temprature, Is.EqualTo(10d));
+            Assert.That(itemUnderTest.Error, Is.False);
         }
 
+        [Test]
         public void SensorView_ctor_PopulatesPressureValue()
         {
             var sensor = A.Fake<IAUVSensor>();
             A.CallTo(() => sensor.GetPressure()).Returns(15d);
-            var itemUnderTest = new SensorView(sensor);
+            var itemUnderTest = new SensorVM(sensor);
 
             Assert.That(itemUnderTest.Pressure, Is.EqualTo(15d));
+            Assert.That(itemUnderTest.Error, Is.False);
         }
 
+        [Test]
         public void SensorView_ctor_PopulatesErrorWhenTempThrows()
         {
             var sensor = A.Fake<IAUVSensor>();
-            var sensorView = new SensorView(sensor);
+            A.CallTo(() => sensor.GetTemperature()).Throws(new Exception());
 
+            var itemUnderTest = new SensorVM(sensor);
+
+            Assert.That(itemUnderTest.Error, Is.True);
         }
 
+        [Test]
         public void SensorView_ctor_PopulatesErrorWhenPressureThrows()
         {
             var sensor = A.Fake<IAUVSensor>();
-            var sensorView = new SensorView(sensor);
+
+            A.CallTo(() => sensor.GetTemperature()).Throws(new Exception());
+            var itemUnderTest = new SensorVM(sensor);
+
+            Assert.That(itemUnderTest.Error, Is.True);
 
         }
     }
