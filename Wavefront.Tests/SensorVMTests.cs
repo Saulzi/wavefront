@@ -50,7 +50,17 @@
             var itemUnderTest = new SensorVM(sensor);
 
             Assert.That(itemUnderTest.Error, Is.True);
+        }
 
+        [Test]
+        public void SensorView_SensorID_IsSameAsSensor()
+        {
+            var sensor = A.Fake<IAUVSensor>();
+            A.CallTo(() => sensor.SensorId).Returns(5);
+
+            var itemUnderTest = new SensorVM(sensor);
+
+            Assert.That(itemUnderTest.SensorId, Is.EqualTo(5));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 
 namespace Wavefront
 {
@@ -9,10 +10,18 @@ namespace Wavefront
     {
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            var sensors = AUV.API.AUVSensorsFactory.Build();
+            SensorVM[] sensorVms = GetSensorVms();
 
-            MainWindow mainWindow = new MainWindow(sensors);
+            MainWindow mainWindow = new MainWindow(sensorVms);
             mainWindow.Show();
+        }
+
+        private static SensorVM[] GetSensorVms()
+        {
+            var sensors = AUV.API.AUVSensorsFactory.Build();
+            var sensorVms = sensors.Select(sensor => new SensorVM(sensor))
+                                   .ToArray();
+            return sensorVms;
         }
     }
 }

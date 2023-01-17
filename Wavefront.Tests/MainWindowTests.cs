@@ -17,7 +17,7 @@
         [Test]
         public void MainWindow_ctor_SetsDataContextFromConstructor()
         {
-            var data = Array.Empty<IAUVSensor>();
+            var data = Array.Empty<SensorVM>();
             var itemUnderTest = new MainWindow(data);
 
             Assert.That(itemUnderTest.DataContext, Is.SameAs(data));

@@ -4,10 +4,18 @@
     {
         private IAUVSensor _sensor;
 
+        public double Temprature { get; private set; }
+
+        public double Pressure { get; private set; }
+
+        public bool Error { get; private set; }
+
+        public int SensorId { get; }
+
         public SensorVM(IAUVSensor sensor)
         {
             _sensor = sensor ?? throw new ArgumentNullException(nameof(sensor));
-
+            SensorId = sensor.SensorId; 
             ReadValues();
         }
 
@@ -31,10 +39,5 @@
             return 0;
         }
 
-        public double Temprature { get; private set; }
-
-        public double Pressure { get; private set; }
-
-        public bool Error { get; private set; }
     }
 }
