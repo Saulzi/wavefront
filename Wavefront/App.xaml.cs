@@ -10,18 +10,9 @@ namespace Wavefront
     {
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            SensorVM[] sensorVms = GetSensorVms();
-
-            MainWindow mainWindow = new MainWindow(sensorVms);
+            var sensorsVm = new SensorsVM(AUV.API.AUVSensorsFactory.Build); 
+            MainWindow mainWindow = new MainWindow(sensorsVm);
             mainWindow.Show();
-        }
-
-        private static SensorVM[] GetSensorVms()
-        {
-            var sensors = AUV.API.AUVSensorsFactory.Build();
-            var sensorVms = sensors.Select(sensor => new SensorVM(sensor))
-                                   .ToArray();
-            return sensorVms;
         }
     }
 }

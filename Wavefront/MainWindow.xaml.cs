@@ -21,7 +21,7 @@ namespace Wavefront
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(IList<SensorVM> sensors)
+        public MainWindow(SensorsVM sensors)
         {
             DataContext = sensors ?? throw new ArgumentNullException(nameof (sensors));    
 
