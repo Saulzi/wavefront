@@ -3,10 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Wavefront"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="{Binding Converte}}">
+             d:DesignHeight="100" d:DesignWidth="800">
     <Grid>
+        <Grid.Style>
+            <Style>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Error}" Value="True">
+                        <Setter Property="Grid.Background" Value="PaleVioletRed" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.333*" />
             <RowDefinition Height="0.333*" />
