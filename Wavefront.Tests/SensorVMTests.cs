@@ -62,5 +62,24 @@
 
             Assert.That(itemUnderTest.SensorId, Is.EqualTo(5));
         }
+
+        [TestCase(nameof(SensorVM.Pressure))]
+        [TestCase(nameof(SensorVM.Temprature))]
+        public void SensorVM_UpdateValues_NotifysPropertyChange(string property)
+        {
+            // Arrange
+            var sensor = A.Fake<IAUVSensor>();
+            var itemUnderTest = new SensorVM(sensor);
+            bool propertyChanged = false;
+
+            // Cannot rember the proper / clean way to do this this will do the job for now this has got a bit gnarly                   
+            itemUnderTest.PropertyChanged += (object? sender, System.ComponentModel.PropertyChangedEventArgs e) => propertyChanged = propertyChanged || e.PropertyName == property;
+
+            // Act
+            itemUnderTest.UpdateValues();
+
+            // Assert
+            Assert.That(propertyChanged, Is.True);
+        }
     }
 }

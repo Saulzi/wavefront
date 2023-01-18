@@ -1,12 +1,19 @@
-﻿namespace Wavefront
+﻿using System.Runtime.CompilerServices;
+
+namespace Wavefront
 {
-    public class SensorVM 
+    public class SensorVM : INotifyPropertyChanged
     {
-        private IAUVSensor _sensor;
+        private readonly IAUVSensor _sensor;
 
-        public double Temprature { get; private set; }
+        private double _temprature;         // What a shame the new field bit did not make it into c# 10/11
+        private double _pressure;
 
-        public double Pressure { get; private set; }
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public double Temprature { get => _temprature; private set => NotifyPropertyChange(_temprature = value); }
+
+        public double Pressure { get => _pressure; private set => NotifyPropertyChange(_pressure = value); }
 
         public bool Error { get; private set; }
 
@@ -37,6 +44,12 @@
                 Error = true;
             }
             return 0;
+        }
+
+        private T NotifyPropertyChange<T>(T value, [CallerMemberName] string? name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            return value;
         }
 
     }

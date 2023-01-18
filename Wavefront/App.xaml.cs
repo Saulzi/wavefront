@@ -1,5 +1,4 @@
 ﻿using System.Timers;
-using System.Windows;
 
 namespace Wavefront
 {

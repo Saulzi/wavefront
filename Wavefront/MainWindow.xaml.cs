@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace Wavefront
+﻿namespace Wavefront
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
