@@ -8,6 +8,7 @@ namespace Wavefront
 
         private double _temprature;         // What a shame the new field bit did not make it into c# 10/11
         private double _pressure;
+        private bool _error;                
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -15,7 +16,7 @@ namespace Wavefront
 
         public double Pressure { get => _pressure; private set => NotifyPropertyChange(_pressure = value); }
 
-        public bool Error { get; private set; }
+        public bool Error { get => _error; private set => NotifyPropertyChange(_error = value); }
 
         public int SensorId { get; }
 
