@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Timers;
+﻿using System.Timers;
 using System.Windows;
 
 namespace Wavefront
