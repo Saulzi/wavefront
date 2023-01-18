@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Wavefront"
         mc:Ignorable="d"
         Title="Wavefront Interview Tom Salisbury" Height="450" Width="800">
-    <ItemsControl ItemsSource="{Binding Sensors}">
+    <ItemsControl ItemsSource="{Binding Sensors, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
                 <local:Sensor />

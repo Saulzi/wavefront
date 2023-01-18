@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Timers;
 using System.Windows;
 
 namespace Wavefront
@@ -10,7 +11,15 @@ namespace Wavefront
     {
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            var sensorsVm = new SensorsVM(AUV.API.AUVSensorsFactory.Build); 
+            var sensorsVm = new SensorsVM(AUV.API.AUVSensorsFactory.Build);
+
+            var timer = new Timer(1000);
+            timer.Elapsed += (source, args) =>
+            {
+                sensorsVm.UpdateSensors();
+            };
+
+            timer.Start();
             MainWindow mainWindow = new MainWindow(sensorsVm);
             mainWindow.Show();
         }

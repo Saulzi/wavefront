@@ -16,10 +16,10 @@
         {
             _sensor = sensor ?? throw new ArgumentNullException(nameof(sensor));
             SensorId = sensor.SensorId; 
-            ReadValues();
+            UpdateValues();
         }
 
-        private void ReadValues()
+        public void UpdateValues()
         {
             Error = false;
             Temprature = ReadValue(_sensor.GetTemperature);
