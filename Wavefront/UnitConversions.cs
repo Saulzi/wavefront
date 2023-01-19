@@ -1,6 +1,6 @@
 ﻿namespace Wavefront
 {
-    public class UnitConversions
+    public sealed class UnitConversions
     {
         public static double ConvertOFtoOC(double value)
         {

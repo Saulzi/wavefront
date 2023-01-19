@@ -1,7 +1,4 @@
-﻿
-using Wavefront.AUV.API.Enums;
-
-namespace Wavefront
+﻿namespace Wavefront
 {
 
     public abstract class SensorReadingVm<UnitEnum> : INotifyPropertyChanged

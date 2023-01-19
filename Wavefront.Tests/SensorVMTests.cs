@@ -3,62 +3,62 @@
     class SensorVMTests
     {
         [Test]
-        public void SensorView_ctor_ThrowsNullArgumentExceptionWhenSensorIsNull()
+        public void SensorVM_ctor_ThrowsNullArgumentExceptionWhenSensorIsNull()
         {
-            Assert.That(() => new SensorVM(null), Throws.ArgumentNullException);
+            Assert.That(() => new SensorVM(null, A.Fake<ISelectedSensorUnits>()), Throws.ArgumentNullException);
         }
 
         [Test]
-        public void SensorView_ctor_PopulatesTempValue()
+        public void SensorVM_ctor_PopulatesTempValue()
         {
             var sensor = A.Fake<IAUVSensor>();
             A.CallTo(() => sensor.GetTemperature()).Returns(10d);
-            var itemUnderTest = new SensorVM(sensor);
+            var itemUnderTest = new SensorVM(sensor, A.Fake<ISelectedSensorUnits>());
 
             Assert.That((double)itemUnderTest.Temprature, Is.EqualTo(10d));
             Assert.That(itemUnderTest.Error, Is.False);
         }
 
         [Test]
-        public void SensorView_ctor_PopulatesPressureValue()
+        public void SensorVM_ctor_PopulatesPressureValue()
         {
             var sensor = A.Fake<IAUVSensor>();
             A.CallTo(() => sensor.GetPressure()).Returns(15d);
-            var itemUnderTest = new SensorVM(sensor);
+            var itemUnderTest = new SensorVM(sensor, A.Fake<ISelectedSensorUnits>());
 
             Assert.That((double)itemUnderTest.Pressure, Is.EqualTo(15d));
             Assert.That(itemUnderTest.Error, Is.False);
         }
 
         [Test]
-        public void SensorView_ctor_PopulatesErrorWhenTempThrows()
+        public void SensorVM_ctor_PopulatesErrorWhenTempThrows()
         {
             var sensor = A.Fake<IAUVSensor>();
             A.CallTo(() => sensor.GetTemperature()).Throws(new Exception());
 
-            var itemUnderTest = new SensorVM(sensor);
+            var itemUnderTest = new SensorVM(sensor, A.Fake<ISelectedSensorUnits>());
 
             Assert.That(itemUnderTest.Error, Is.True);
         }
 
         [Test]
-        public void SensorView_ctor_PopulatesErrorWhenPressureThrows()
+        public void SensorVM_ctor_PopulatesErrorWhenPressureThrows()
         {
             var sensor = A.Fake<IAUVSensor>();
 
             A.CallTo(() => sensor.GetTemperature()).Throws(new Exception());
-            var itemUnderTest = new SensorVM(sensor);
+            var itemUnderTest = new SensorVM(sensor, A.Fake<ISelectedSensorUnits>());
 
             Assert.That(itemUnderTest.Error, Is.True);
         }
 
         [Test]
-        public void SensorView_SensorID_IsSameAsSensor()
+        public void SensorVM_SensorID_IsSameAsSensor()
         {
             var sensor = A.Fake<IAUVSensor>();
             A.CallTo(() => sensor.SensorId).Returns(5);
 
-            var itemUnderTest = new SensorVM(sensor);
+            var itemUnderTest = new SensorVM(sensor, A.Fake<ISelectedSensorUnits>());
 
             Assert.That(itemUnderTest.SensorId, Is.EqualTo(5));
         }
@@ -68,7 +68,7 @@
         {
             // Arrange
             var sensor = A.Fake<IAUVSensor>();
-            var itemUnderTest = new SensorVM(sensor);
+            var itemUnderTest = new SensorVM(sensor, A.Fake<ISelectedSensorUnits>());
             bool propertyChanged = false;
 
             // Cannot rember the proper / clean way to do this                

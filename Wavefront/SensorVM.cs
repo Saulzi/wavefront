@@ -3,7 +3,7 @@ using Wavefront.AUV.API.Enums;
 
 namespace Wavefront
 {
-    public class SensorVM : INotifyPropertyChanged
+    public sealed class SensorVM : INotifyPropertyChanged
     {
         public SensorReadingVm<eTemperature> Temprature { get; init; }         // What a shame the new field bit did not make it into c# 10/11
         public SensorReadingVm<ePressure> Pressure { get; init; }
@@ -17,7 +17,7 @@ namespace Wavefront
 
         public int SensorId { get; }
 
-        public SensorVM(IAUVSensor sensor)
+        public SensorVM(IAUVSensor sensor, ISelectedSensorUnits selectedSensorUnits)
         {
             if (sensor == null)
             {
