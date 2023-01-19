@@ -55,5 +55,29 @@ namespace Wavefront.Tests
             // Assert
             Assert.That(propertyChanged, Is.True);
         }
+
+        [TestCase(eTemperature.Celsius, "°C")]
+        [TestCase(eTemperature.Fahrenheit, "°F")]
+        [TestCase(eTemperature.Unknown, "??")]
+        public void TempratureReadingVM_HasSelectedUnitSymbol(eTemperature temperatureUnit, string expectedSymbol)
+        {
+            var unit = A.Fake<IAUVSensor>();
+            A.CallTo(() => unit.TemperatureUnit).Returns(temperatureUnit);
+            var itemUnderTest = new TempratureReadingVm(unit);
+
+            StringAssert.EndsWith(expectedSymbol, itemUnderTest.Value);
+        }
+
+        [TestCase(ePressure.Unknown, "??")]
+        [TestCase(ePressure.PSI, "psi")]
+        [TestCase(ePressure.kPa, "kPa")]
+        public void PressureReadingVM_HasSelectedUnitSymbol(ePressure pressureUnit, string expectedSymbol)
+        {
+            var unit = A.Fake<IAUVSensor>();
+            A.CallTo(() => unit.PressureUnit).Returns(pressureUnit);
+            var itemUnderTest = new PressureReadingVm(unit);
+
+            StringAssert.EndsWith(expectedSymbol, itemUnderTest.Value);
+        }
     }
 }
