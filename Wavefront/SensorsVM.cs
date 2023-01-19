@@ -11,8 +11,6 @@
             Sensors = sensors().Select(s => new SensorVM(s)).ToArray();
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
         public void UpdateSensors()
         {
             foreach (var sensor in Sensors)

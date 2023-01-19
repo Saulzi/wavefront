@@ -30,7 +30,7 @@
         <Label Grid.Row="1" Grid.Column="0" Content="Temprature" />
         <Label Grid.Row="2" Grid.Column="0" Content="Pressure"/>
 
-        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=Temprature}" />
-        <Label Grid.Row="2" Grid.Column="1" Content="{Binding Path=Pressure}" />
+        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=Temprature.Value}" />
+        <Label Grid.Row="2" Grid.Column="1" Content="{Binding Path=Pressure.Value}" />
     </Grid>
 </UserControl>

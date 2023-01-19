@@ -15,7 +15,7 @@
             A.CallTo(() => sensor.GetTemperature()).Returns(10d);
             var itemUnderTest = new SensorVM(sensor);
 
-            Assert.That(itemUnderTest.Temprature, Is.EqualTo(10d));
+            Assert.That((double)itemUnderTest.Temprature, Is.EqualTo(10d));
             Assert.That(itemUnderTest.Error, Is.False);
         }
 
@@ -26,7 +26,7 @@
             A.CallTo(() => sensor.GetPressure()).Returns(15d);
             var itemUnderTest = new SensorVM(sensor);
 
-            Assert.That(itemUnderTest.Pressure, Is.EqualTo(15d));
+            Assert.That((double)itemUnderTest.Pressure, Is.EqualTo(15d));
             Assert.That(itemUnderTest.Error, Is.False);
         }
 
@@ -63,17 +63,16 @@
             Assert.That(itemUnderTest.SensorId, Is.EqualTo(5));
         }
 
-        [TestCase(nameof(SensorVM.Pressure))]
-        [TestCase(nameof(SensorVM.Temprature))]
-        public void SensorVM_UpdateValues_NotifysPropertyChange(string property)
+        [Test]
+        public void SensorVM_UpdateValues_NotifysErrorPropertyChange()
         {
             // Arrange
             var sensor = A.Fake<IAUVSensor>();
             var itemUnderTest = new SensorVM(sensor);
             bool propertyChanged = false;
 
-            // Cannot rember the proper / clean way to do this this will do the job for now this has got a bit gnarly                   
-            itemUnderTest.PropertyChanged += (object? sender, System.ComponentModel.PropertyChangedEventArgs e) => propertyChanged = propertyChanged || e.PropertyName == property;
+            // Cannot rember the proper / clean way to do this                
+            itemUnderTest.PropertyChanged += (object? sender, System.ComponentModel.PropertyChangedEventArgs e) => propertyChanged = e.PropertyName == nameof(SensorVM.Error);
 
             // Act
             itemUnderTest.UpdateValues();

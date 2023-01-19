@@ -11,7 +11,7 @@ namespace Wavefront
         {
             var sensorsVm = new SensorsVM(AUV.API.AUVSensorsFactory.Build);
 
-            var timer = new Timer(1000);
+            var timer = new Timer(1000);            // TODO: Clean this up
             timer.Elapsed += (source, args) =>
             {
                 sensorsVm.UpdateSensors();

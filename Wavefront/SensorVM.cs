@@ -1,20 +1,17 @@
 ﻿using System.Runtime.CompilerServices;
+using Wavefront.AUV.API.Enums;
 
 namespace Wavefront
 {
     public class SensorVM : INotifyPropertyChanged
     {
-        private readonly IAUVSensor _sensor;
+        public SensorReadingVm<eTemperature> Temprature { get; init; }         // What a shame the new field bit did not make it into c# 10/11
+        public SensorReadingVm<ePressure> Pressure { get; init; }
 
-        private double _temprature;         // What a shame the new field bit did not make it into c# 10/11
-        private double _pressure;
         private bool _error;                
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public double Temprature { get => _temprature; private set => NotifyPropertyChange(_temprature = value); }
-
-        public double Pressure { get => _pressure; private set => NotifyPropertyChange(_pressure = value); }
 
         public bool Error { get => _error; private set => NotifyPropertyChange(_error = value); }
 
@@ -22,29 +19,37 @@ namespace Wavefront
 
         public SensorVM(IAUVSensor sensor)
         {
-            _sensor = sensor ?? throw new ArgumentNullException(nameof(sensor));
-            SensorId = sensor.SensorId; 
+            if (sensor == null)
+            {
+                throw new ArgumentNullException(nameof(sensor));
+            }
+
+            SensorId = sensor.SensorId;
+
+            Temprature = new SensorReadingVm<eTemperature>(sensor);
+            Pressure = new SensorReadingVm<ePressure>(sensor);
+            
             UpdateValues();
         }
 
         public void UpdateValues()
         {
             Error = false;
-            Temprature = ReadValue(_sensor.GetTemperature);
-            Pressure = ReadValue(_sensor.GetPressure);
+
+            TryUpdate(Temprature.ReadValue);
+            TryUpdate(Pressure.ReadValue);
         }
 
-        double ReadValue(Func<double> readFn)
+        private void TryUpdate(Action action)
         {
             try
             {
-                return readFn();
+                action();
             }
             catch
             {
                 Error = true;
             }
-            return 0;
         }
 
         private T NotifyPropertyChange<T>(T value, [CallerMemberName] string? name = null)

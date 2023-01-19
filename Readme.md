@@ -15,8 +15,8 @@ compare the difference of all the readings on one screen.
 - [ ] As a user I want to be able to select which unit the temperature and pressure readings from 
 the sensors are displayed in so that I don’t have to convert the values. 
 
-- [ ] As a user I want an automatic update of the temperature and pressure readings on the screen 
+- [x] As a user I want an automatic update of the temperature and pressure readings on the screen 
 every second so that I can see the latest values provided by the sensors all the time. 
 
-- [ ] As a user I want the application to be robust so when the error in sensor reading happens the 
+- [x] As a user I want the application to be robust so when the error in sensor reading happens the 
 application do not crash.
