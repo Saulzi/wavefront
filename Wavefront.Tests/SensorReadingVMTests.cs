@@ -55,9 +55,9 @@
         [TestCase(eTemperature.Unknown, "??")]
         public void TempratureReadingVM_HasSelectedUnitSymbol(eTemperature temperatureUnit, string expectedSymbol)
         {
-            var unit = A.Fake<IAUVSensor>();
-            A.CallTo(() => unit.TemperatureUnit).Returns(temperatureUnit);
-            var itemUnderTest = new TempratureReadingVm(unit, UnitSelection.CreateTemprature());
+            var unitSelection = UnitSelection.CreateTemprature();
+            unitSelection.Value = temperatureUnit;
+            var itemUnderTest = new TempratureReadingVm(A.Fake<IAUVSensor>(), unitSelection);
 
             StringAssert.EndsWith(expectedSymbol, itemUnderTest.Value);
         }
@@ -67,9 +67,9 @@
         [TestCase(ePressure.kPa, "kPa")]
         public void PressureReadingVM_HasSelectedUnitSymbol(ePressure pressureUnit, string expectedSymbol)
         {
-            var unit = A.Fake<IAUVSensor>();
-            A.CallTo(() => unit.PressureUnit).Returns(pressureUnit);
-            var itemUnderTest = new PressureReadingVm(unit, UnitSelection.CreatePressure());
+            var unitSelection = UnitSelection.CreatePressure();
+            unitSelection.Value = pressureUnit;
+            var itemUnderTest = new PressureReadingVm(A.Fake<IAUVSensor>(), unitSelection);
 
             StringAssert.EndsWith(expectedSymbol, itemUnderTest.Value);
         }

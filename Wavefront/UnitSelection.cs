@@ -2,7 +2,7 @@
 
 namespace Wavefront
 {
-    public class UnitSelection
+    public abstract class UnitSelection
     {
         public static UnitSelection<eTemperature> CreateTemprature() => new UnitSelection<eTemperature> { Value = eTemperature.Celsius };
         public static UnitSelection<ePressure> CreatePressure() => new UnitSelection<ePressure> { Value = ePressure.PSI };
