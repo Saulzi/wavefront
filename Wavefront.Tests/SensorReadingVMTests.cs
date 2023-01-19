@@ -14,7 +14,7 @@ namespace Wavefront.Tests
             // Arrange
             var sensor = A.Fake<IAUVSensor>();
             A.CallTo(() => sensor.GetTemperature()).Returns(0.1234d);
-            var itemUnderTest = new SensorReadingVm<eTemperature>(sensor);
+            var itemUnderTest = new TempratureReadingVm(sensor);
 
             // Act
             itemUnderTest.ReadValue();
@@ -29,7 +29,7 @@ namespace Wavefront.Tests
             // Arrange
             var sensor = A.Fake<IAUVSensor>();
             A.CallTo(() => sensor.GetPressure()).Returns(0.1234d);
-            var itemUnderTest = new SensorReadingVm<ePressure>(sensor);
+            var itemUnderTest = new PressureReadingVm(sensor);
 
             // Act
             itemUnderTest.ReadValue();
@@ -43,7 +43,7 @@ namespace Wavefront.Tests
         {
             // Arrange
             var sensor = A.Fake<IAUVSensor>();
-            var itemUnderTest = new SensorReadingVm<eTemperature>(sensor);
+            var itemUnderTest = new TempratureReadingVm(sensor);
             bool propertyChanged = false;
 
             // Cannot rember the proper / clean way to do this, and I have copy pasted it into a few places for speed             

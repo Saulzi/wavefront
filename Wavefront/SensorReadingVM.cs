@@ -4,30 +4,18 @@ using Wavefront.AUV.API.Enums;
 namespace Wavefront
 {
 
-    public class SensorReadingVm<UnitEnum> : INotifyPropertyChanged
+    public abstract class SensorReadingVm<UnitEnum> : INotifyPropertyChanged
     {
-        private Func<double> _readValue;
+        protected Func<double> _readValue;
         private double _value;
-        private object Units;
+        public UnitEnum Units { get; init; }
 
-        public string Value => $"{_value:#,0.000} {Symbol()}";
+        public string Value => $"{_value:#,0.000} {Symbol}";
 
-        public SensorReadingVm(IAUVSensor sensor)
+        public SensorReadingVm(Func<double> readValue, UnitEnum units)
         {
-            if (typeof(UnitEnum) == typeof(eTemperature))           // Not very open closed but good enough for our use case
-            {
-                _readValue = sensor.GetTemperature;
-                Units = sensor.TemperatureUnit;
-            } 
-
-            else if (typeof(UnitEnum) == typeof(ePressure))
-            {
-                _readValue = sensor.GetPressure;
-                Units = sensor.PressureUnit;
-            }
-
-            // Should be a build time error
-            else { throw new Exception(); }
+            _readValue = readValue;
+            Units = units;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -38,17 +26,7 @@ namespace Wavefront
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value)));
         }
 
-        private string Symbol()
-        {
-            return Units switch
-            {
-                ePressure.PSI => "psi",                         // Not very open closed but good enough for our use case
-                ePressure.kPa => "kPa",
-                eTemperature.Celsius => "°C",
-                eTemperature.Fahrenheit => "°F",
-                _ => "??"
-            };
-        }
+        protected abstract string Symbol { get; }
 
         public static implicit operator double(SensorReadingVm<UnitEnum> o) => o._value;
     }

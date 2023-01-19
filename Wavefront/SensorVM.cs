@@ -26,8 +26,8 @@ namespace Wavefront
 
             SensorId = sensor.SensorId;
 
-            Temprature = new SensorReadingVm<eTemperature>(sensor);
-            Pressure = new SensorReadingVm<ePressure>(sensor);
+            Temprature = new TempratureReadingVm(sensor);
+            Pressure = new PressureReadingVm(sensor);
             
             UpdateValues();
         }
