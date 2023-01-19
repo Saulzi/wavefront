@@ -4,7 +4,8 @@ namespace Wavefront
 {
     public abstract class UnitSelection
     {
-        public static UnitSelection<eTemperature> CreateTemprature() => new UnitSelection<eTemperature> { 
+        public static UnitSelection<eTemperature> CreateTemprature() => new()
+        { 
             Name="Temperature", 
             Value = eTemperature.Celsius, 
             Values = { 
@@ -12,7 +13,7 @@ namespace Wavefront
                 new("°F", eTemperature.Fahrenheit)
             }
         };
-        public static UnitSelection<ePressure> CreatePressure() => new UnitSelection<ePressure>
+        public static UnitSelection<ePressure> CreatePressure() => new()
         {
             Name = "Pressure",
             Value = ePressure.PSI,
@@ -32,7 +33,7 @@ namespace Wavefront
 
         public record Unit(string Name, UnitEnum Value);
 
-        public string Name { get; init;  }
+        public string Name { get; init; } = String.Empty;
 
         public List<Unit> Values { get; } = new List<Unit>();
     }

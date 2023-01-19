@@ -8,7 +8,7 @@
 
         public string Value => $"{_value:#,0.000} {Symbol}";
 
-        public SensorReadingVm(Func<(double value, UnitEnum unit)> readValue)
+        protected SensorReadingVm(Func<(double value, UnitEnum unit)> readValue)
         {
             _readValue = readValue;
         }

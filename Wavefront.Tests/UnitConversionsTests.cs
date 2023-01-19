@@ -1,13 +1,11 @@
-﻿using NUnit.Framework;
-
-namespace Wavefront.Tests
+﻿namespace Wavefront.Tests
 {
 
-   
+
     [TestFixture]
     public class UnitConversionsTests
     {
-        public record ConversionTestCase<T>(double value, T valueUnit, T outputUnit, double expectedValue);
+        public record ConversionTestCase<T>(double Value, T ValueUnit, T OutputUnit, double ExpectedValue);
 
         private static IEnumerable<ConversionTestCase<eTemperature>> ConvertTempratureTestCases =>
             new ConversionTestCase<eTemperature>[]

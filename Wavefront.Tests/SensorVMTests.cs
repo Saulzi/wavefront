@@ -14,9 +14,11 @@
             var sensor = A.Fake<IAUVSensor>();
             A.CallTo(() => sensor.GetTemperature()).Returns(10d);
             var itemUnderTest = new SensorVM(sensor, A.Fake<ISelectedSensorUnits>());
-
-            Assert.That((double)itemUnderTest.Temprature, Is.EqualTo(10d));
-            Assert.That(itemUnderTest.Error, Is.False);
+            Assert.Multiple(() =>
+            {
+                Assert.That((double)itemUnderTest.Temprature, Is.EqualTo(10d));
+                Assert.That(itemUnderTest.Error, Is.False);
+            });
         }
 
         [Test]
@@ -25,9 +27,11 @@
             var sensor = A.Fake<IAUVSensor>();
             A.CallTo(() => sensor.GetPressure()).Returns(15d);
             var itemUnderTest = new SensorVM(sensor, A.Fake<ISelectedSensorUnits>());
-
-            Assert.That((double)itemUnderTest.Pressure, Is.EqualTo(15d));
-            Assert.That(itemUnderTest.Error, Is.False);
+            Assert.Multiple(() =>
+            {
+                Assert.That((double)itemUnderTest.Pressure, Is.EqualTo(15d));
+                Assert.That(itemUnderTest.Error, Is.False);
+            });
         }
 
         [Test]
@@ -46,7 +50,7 @@
         {
             var sensor = A.Fake<IAUVSensor>();
 
-            A.CallTo(() => sensor.GetTemperature()).Throws(new Exception());
+            A.CallTo(() => sensor.GetPressure()).Throws(new Exception());
             var itemUnderTest = new SensorVM(sensor, A.Fake<ISelectedSensorUnits>());
 
             Assert.That(itemUnderTest.Error, Is.True);
