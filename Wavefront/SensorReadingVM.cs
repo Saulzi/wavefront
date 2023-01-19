@@ -3,23 +3,21 @@
 
     public abstract class SensorReadingVm<UnitEnum> : INotifyPropertyChanged
     {
-        protected Func<double> _readValue;
+        protected Func<(double value, UnitEnum unit)> _readValue;
         private double _value;
-        public UnitEnum Units { get; init; }
 
         public string Value => $"{_value:#,0.000} {Symbol}";
 
-        public SensorReadingVm(Func<double> readValue, UnitEnum units)
+        public SensorReadingVm(Func<(double value, UnitEnum unit)> readValue)
         {
             _readValue = readValue;
-            Units = units;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public void ReadValue()
         {
-            _value = _readValue();
+            _value = _readValue().value;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Value)));
         }
 

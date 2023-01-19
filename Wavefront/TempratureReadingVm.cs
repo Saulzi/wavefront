@@ -6,7 +6,7 @@ namespace Wavefront
     {
         private readonly UnitSelection<eTemperature> _selectedUnits;
 
-        public TempratureReadingVm(IAUVSensor sensor, UnitSelection<eTemperature> selectedUnits) : base(sensor.GetTemperature, sensor.TemperatureUnit)
+        public TempratureReadingVm(IAUVSensor sensor, UnitSelection<eTemperature> selectedUnits) : base(() => (sensor.GetTemperature(), sensor.TemperatureUnit))
         {
             _selectedUnits = selectedUnits;
         }
