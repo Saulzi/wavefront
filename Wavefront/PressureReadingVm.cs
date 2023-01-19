@@ -6,7 +6,7 @@ namespace Wavefront
     {
         private readonly UnitSelection<ePressure> _selectedUnits;
 
-        public PressureReadingVm(IAUVSensor sensor, UnitSelection<ePressure> selectedUnits) : base(() => (sensor.GetPressure(), sensor.PressureUnit), val => UnitConversions.ConvertPressure(val, selectedUnits.Value))
+        public PressureReadingVm(IAUVSensor sensor, UnitSelection<ePressure> selectedUnits) : base(() => (sensor.GetPressure(), sensor.PressureUnit))
         {
             _selectedUnits = selectedUnits;
         }
@@ -17,6 +17,8 @@ namespace Wavefront
             ePressure.kPa => "kPa",
             _ => "??"
         };
+
+        protected override double ConvertUnits((double value, ePressure unit) value) => UnitConversions.ConvertPressure(value, _selectedUnits.Value);
     }
 }
 

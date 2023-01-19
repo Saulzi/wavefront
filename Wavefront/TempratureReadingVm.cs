@@ -6,7 +6,7 @@ namespace Wavefront
     {
         private readonly UnitSelection<eTemperature> _selectedUnits;
 
-        public TempratureReadingVm(IAUVSensor sensor, UnitSelection<eTemperature> selectedUnits) : base(() => (sensor.GetTemperature(), sensor.TemperatureUnit), val => UnitConversions.ConvertTemprature(val, selectedUnits.Value))
+        public TempratureReadingVm(IAUVSensor sensor, UnitSelection<eTemperature> selectedUnits) : base(() => (sensor.GetTemperature(), sensor.TemperatureUnit))
         {
             _selectedUnits = selectedUnits;
         }
@@ -17,5 +17,8 @@ namespace Wavefront
             eTemperature.Fahrenheit => "°F",
             _ => "??"
         };
+
+        protected override double ConvertUnits((double value, eTemperature unit) value) => UnitConversions.ConvertTemprature(value, _selectedUnits.Value);
+        
     }
 }

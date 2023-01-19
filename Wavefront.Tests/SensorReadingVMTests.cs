@@ -23,6 +23,7 @@
         {
             // Arrange
             var sensor = A.Fake<IAUVSensor>();
+            A.CallTo(() => sensor.PressureUnit).Returns(ePressure.PSI);
             A.CallTo(() => sensor.GetPressure()).Returns(0.1234d);
             var itemUnderTest = new PressureReadingVm(sensor, UnitSelection.CreatePressure());
 
