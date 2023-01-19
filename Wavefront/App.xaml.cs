@@ -11,15 +11,18 @@ namespace Wavefront
         {
             var sensorsVm = new SensorsVM(AUV.API.AUVSensorsFactory.Build);
 
-            var timer = new Timer(1000);            // TODO: Clean this up
-            timer.Elapsed += (source, args) =>
+            using (var timer = new Timer(1000))
             {
-                sensorsVm.UpdateSensors();
-            };
+                timer.Elapsed += (source, args) =>
+                {
+                    sensorsVm.UpdateSensors();
+                };
 
-            timer.Start();
-            MainWindow mainWindow = new MainWindow(sensorsVm);
-            mainWindow.Show();
+                timer.Start();
+                
+                var mainWindow = new MainWindow(sensorsVm);
+                mainWindow.ShowDialog();
+            }
         }
     }
 }
