@@ -18,8 +18,8 @@
                 <ColumnDefinition Width=".5*" />                
             </Grid.ColumnDefinitions>
 
-            <local:UnitSelector Grid.Column="0" SelectionFor="Temprature" />
-            <local:UnitSelector Grid.Column="1" SelectionFor="Pressure" />
+            <local:UnitSelector Grid.Column="0" DataContext="{Binding TempratureUnit}" />
+            <local:UnitSelector Grid.Column="1" DataContext="{Binding PressureUnit}" />
         </Grid>
 
         <ItemsControl Grid.Row="1" ItemsSource="{Binding Sensors, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">

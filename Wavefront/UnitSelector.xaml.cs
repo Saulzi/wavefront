@@ -25,8 +25,5 @@ namespace Wavefront
             InitializeComponent();
         }
 
-        public string SelectionFor { get => Label.Content?.ToString()!;
-                                     set => Label.Content = value; }
-
     }
 }
