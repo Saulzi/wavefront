@@ -4,7 +4,7 @@ namespace Wavefront
 {
     public sealed class TempratureReadingVm : SensorReadingVm<eTemperature>
     {
-        public TempratureReadingVm(IAUVSensor sensor) : base(sensor.GetTemperature, sensor.TemperatureUnit)
+        public TempratureReadingVm(IAUVSensor sensor, UnitSelection<eTemperature> selectedUnits) : base(sensor.GetTemperature, sensor.TemperatureUnit)
         {
         }
 

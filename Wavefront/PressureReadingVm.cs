@@ -4,7 +4,7 @@ namespace Wavefront
 {
     public sealed class PressureReadingVm : SensorReadingVm<ePressure>
     {
-        public PressureReadingVm(IAUVSensor sensor) : base(sensor.GetPressure, sensor.PressureUnit)
+        public PressureReadingVm(IAUVSensor sensor, UnitSelection<ePressure> selectedUnits) : base(sensor.GetPressure, sensor.PressureUnit)
         {
         }
 

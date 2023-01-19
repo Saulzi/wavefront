@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Wavefront.Tests
+﻿namespace Wavefront.Tests
 {
     internal class SensorReadingVMTests
     {
@@ -14,7 +8,7 @@ namespace Wavefront.Tests
             // Arrange
             var sensor = A.Fake<IAUVSensor>();
             A.CallTo(() => sensor.GetTemperature()).Returns(0.1234d);
-            var itemUnderTest = new TempratureReadingVm(sensor);
+            var itemUnderTest = new TempratureReadingVm(sensor, UnitSelection.CreateTemprature());
 
             // Act
             itemUnderTest.ReadValue();
@@ -29,7 +23,7 @@ namespace Wavefront.Tests
             // Arrange
             var sensor = A.Fake<IAUVSensor>();
             A.CallTo(() => sensor.GetPressure()).Returns(0.1234d);
-            var itemUnderTest = new PressureReadingVm(sensor);
+            var itemUnderTest = new PressureReadingVm(sensor, UnitSelection.CreatePressure());
 
             // Act
             itemUnderTest.ReadValue();
@@ -43,7 +37,7 @@ namespace Wavefront.Tests
         {
             // Arrange
             var sensor = A.Fake<IAUVSensor>();
-            var itemUnderTest = new TempratureReadingVm(sensor);
+            var itemUnderTest = new TempratureReadingVm(sensor, UnitSelection.CreateTemprature());
             bool propertyChanged = false;
 
             // Cannot rember the proper / clean way to do this, and I have copy pasted it into a few places for speed             
@@ -63,7 +57,7 @@ namespace Wavefront.Tests
         {
             var unit = A.Fake<IAUVSensor>();
             A.CallTo(() => unit.TemperatureUnit).Returns(temperatureUnit);
-            var itemUnderTest = new TempratureReadingVm(unit);
+            var itemUnderTest = new TempratureReadingVm(unit, UnitSelection.CreateTemprature());
 
             StringAssert.EndsWith(expectedSymbol, itemUnderTest.Value);
         }
@@ -75,7 +69,7 @@ namespace Wavefront.Tests
         {
             var unit = A.Fake<IAUVSensor>();
             A.CallTo(() => unit.PressureUnit).Returns(pressureUnit);
-            var itemUnderTest = new PressureReadingVm(unit);
+            var itemUnderTest = new PressureReadingVm(unit, UnitSelection.CreatePressure());
 
             StringAssert.EndsWith(expectedSymbol, itemUnderTest.Value);
         }
