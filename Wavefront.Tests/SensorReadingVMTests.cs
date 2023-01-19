@@ -7,6 +7,7 @@
         {
             // Arrange
             var sensor = A.Fake<IAUVSensor>();
+            A.CallTo(() => sensor.TemperatureUnit).Returns(eTemperature.Celsius);
             A.CallTo(() => sensor.GetTemperature()).Returns(0.1234d);
             var itemUnderTest = new TempratureReadingVm(sensor, UnitSelection.CreateTemprature());
 
@@ -37,6 +38,8 @@
         {
             // Arrange
             var sensor = A.Fake<IAUVSensor>();
+            A.CallTo(() => sensor.TemperatureUnit).Returns(eTemperature.Celsius);
+
             var itemUnderTest = new TempratureReadingVm(sensor, UnitSelection.CreateTemprature());
             bool propertyChanged = false;
 
@@ -73,5 +76,23 @@
 
             StringAssert.EndsWith(expectedSymbol, itemUnderTest.Value);
         }
+
+        [Test]
+        public void TempratureReadingVM_ConvertsUnits()
+        {
+            var unitSelection = UnitSelection.CreateTemprature();
+            unitSelection.Value = eTemperature.Fahrenheit;
+
+            var sensor = A.Fake<IAUVSensor>();
+            A.CallTo(() => sensor.GetTemperature()).Returns(5);
+            A.CallTo(() => sensor.TemperatureUnit).Returns(eTemperature.Celsius);
+
+            var itemUnderTest = new TempratureReadingVm(sensor, unitSelection);
+            
+            itemUnderTest.ReadValue();
+
+            Assert.That(itemUnderTest.Value, Is.EqualTo("41.000 °F"));
+        }
+        
     }
 }

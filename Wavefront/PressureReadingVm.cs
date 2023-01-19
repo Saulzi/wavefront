@@ -6,7 +6,7 @@ namespace Wavefront
     {
         private readonly UnitSelection<ePressure> _selectedUnits;
 
-        public PressureReadingVm(IAUVSensor sensor, UnitSelection<ePressure> selectedUnits) : base(() => (sensor.GetPressure(), sensor.PressureUnit))
+        public PressureReadingVm(IAUVSensor sensor, UnitSelection<ePressure> selectedUnits) : base(() => (sensor.GetPressure(), sensor.PressureUnit), val => val.value)
         {
             _selectedUnits = selectedUnits;
         }

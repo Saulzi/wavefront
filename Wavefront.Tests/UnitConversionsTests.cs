@@ -1,5 +1,9 @@
-﻿namespace Wavefront.Tests
+﻿using NUnit.Framework;
+
+namespace Wavefront.Tests
 {
+
+   
     [TestFixture]
     public class UnitConversionsTests
     {
@@ -12,6 +16,33 @@
             // x*(9/5)+32 
             var result = UnitConversions.ConvertOCtoOF(oc);
             Assert.That(result, Is.EqualTo(of).Within(0.0001d));
+        }
+
+        public record ConversionTestCase<T>(double value, eTemperature valueUnit, eTemperature outputUnit, double expectedValue);
+
+        private static IEnumerable<ConversionTestCase<eTemperature>> ConvertTempratureTestCases =>
+            new ConversionTestCase<eTemperature>[]
+            {
+                new (0d, eTemperature.Celsius, eTemperature.Fahrenheit, 32d),
+                new (0d, eTemperature.Celsius, eTemperature.Celsius, 0d),
+                new (1d, eTemperature.Celsius, eTemperature.Fahrenheit, 33.8d),
+                new (5d, eTemperature.Celsius, eTemperature.Fahrenheit, 41d),
+                new (100d, eTemperature.Celsius, eTemperature.Fahrenheit, 212d),
+                new (100d, eTemperature.Celsius, eTemperature.Celsius, 100d),
+                new (100d, eTemperature.Fahrenheit, eTemperature.Fahrenheit, 100d),
+                new (41d, eTemperature.Fahrenheit, eTemperature.Celsius, 5d),
+                new (33.8d, eTemperature.Fahrenheit, eTemperature.Celsius, 1d),
+                new (32d, eTemperature.Fahrenheit, eTemperature.Celsius, 0d)
+             };
+
+
+        [TestCaseSource(nameof(ConvertTempratureTestCases))]
+        public void ConvertTemprature(ConversionTestCase<eTemperature> testCase)
+        {
+            var ( value, valueUnit, outputUnit, expectedValue ) = testCase;
+            var result = UnitConversions.ConvertTemprature((value, valueUnit), outputUnit);
+
+            Assert.That(result, Is.EqualTo(expectedValue).Within(0.0001d));
         }
 
         [TestCase(32d, 0d)]
