@@ -2,7 +2,7 @@
 
 namespace Wavefront
 {
-    public sealed class SensorsVM : ISelectedSensorUnits
+    public sealed class SensorsVM : IUnitSelections
     {
         public IList<SensorVM> Sensors { get; private set; } = Array.Empty<SensorVM>();
 

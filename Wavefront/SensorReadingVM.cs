@@ -1,6 +1,9 @@
 ﻿namespace Wavefront
 {
-
+    /// <summary>
+    /// Generic base class for displaying Readings 
+    /// </summary>
+    /// <typeparam name="UnitEnum"></typeparam>
     public abstract class SensorReadingVm<UnitEnum> : INotifyPropertyChanged
     {
         protected Func<(double value, UnitEnum unit)> _readValue;

@@ -2,6 +2,9 @@
 
 namespace Wavefront
 {
+    /// <summary>
+    /// Used to display a Temprature Reading
+    /// </summary>
     public sealed class TempratureReadingVm : SensorReadingVm<eTemperature>
     {
         private readonly UnitSelection<eTemperature> _selectedUnits;

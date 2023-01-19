@@ -5,7 +5,7 @@
         [Test]
         public void SensorVM_ctor_ThrowsNullArgumentExceptionWhenSensorIsNull()
         {
-            Assert.That(() => new SensorVM(null, A.Fake<ISelectedSensorUnits>()), Throws.ArgumentNullException);
+            Assert.That(() => new SensorVM(null, A.Fake<IUnitSelections>()), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -13,7 +13,7 @@
         {
             var sensor = A.Fake<IAUVSensor>();
             A.CallTo(() => sensor.GetTemperature()).Returns(10d);
-            var itemUnderTest = new SensorVM(sensor, A.Fake<ISelectedSensorUnits>());
+            var itemUnderTest = new SensorVM(sensor, A.Fake<IUnitSelections>());
             Assert.Multiple(() =>
             {
                 Assert.That((double)itemUnderTest.Temprature, Is.EqualTo(10d));
@@ -26,7 +26,7 @@
         {
             var sensor = A.Fake<IAUVSensor>();
             A.CallTo(() => sensor.GetPressure()).Returns(15d);
-            var itemUnderTest = new SensorVM(sensor, A.Fake<ISelectedSensorUnits>());
+            var itemUnderTest = new SensorVM(sensor, A.Fake<IUnitSelections>());
             Assert.Multiple(() =>
             {
                 Assert.That((double)itemUnderTest.Pressure, Is.EqualTo(15d));
@@ -40,7 +40,7 @@
             var sensor = A.Fake<IAUVSensor>();
             A.CallTo(() => sensor.GetTemperature()).Throws(new Exception());
 
-            var itemUnderTest = new SensorVM(sensor, A.Fake<ISelectedSensorUnits>());
+            var itemUnderTest = new SensorVM(sensor, A.Fake<IUnitSelections>());
 
             Assert.That(itemUnderTest.Error, Is.True);
         }
@@ -51,7 +51,7 @@
             var sensor = A.Fake<IAUVSensor>();
 
             A.CallTo(() => sensor.GetPressure()).Throws(new Exception());
-            var itemUnderTest = new SensorVM(sensor, A.Fake<ISelectedSensorUnits>());
+            var itemUnderTest = new SensorVM(sensor, A.Fake<IUnitSelections>());
 
             Assert.That(itemUnderTest.Error, Is.True);
         }
@@ -62,7 +62,7 @@
             var sensor = A.Fake<IAUVSensor>();
             A.CallTo(() => sensor.SensorId).Returns(5);
 
-            var itemUnderTest = new SensorVM(sensor, A.Fake<ISelectedSensorUnits>());
+            var itemUnderTest = new SensorVM(sensor, A.Fake<IUnitSelections>());
 
             Assert.That(itemUnderTest.SensorId, Is.EqualTo(5));
         }
@@ -72,7 +72,7 @@
         {
             // Arrange
             var sensor = A.Fake<IAUVSensor>();
-            var itemUnderTest = new SensorVM(sensor, A.Fake<ISelectedSensorUnits>());
+            var itemUnderTest = new SensorVM(sensor, A.Fake<IUnitSelections>());
             bool propertyChanged = false;
 
             // Cannot rember the proper / clean way to do this                

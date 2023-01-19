@@ -2,6 +2,9 @@
 
 namespace Wavefront
 {
+    /// <summary>
+    /// ViewModel is used for displaying Pressure based readings
+    /// </summary>
     public sealed class PressureReadingVm : SensorReadingVm<ePressure>
     {
         private readonly UnitSelection<ePressure> _selectedUnits;

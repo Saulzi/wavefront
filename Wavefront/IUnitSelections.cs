@@ -2,7 +2,10 @@
 
 namespace Wavefront
 {
-    public interface ISelectedSensorUnits
+    /// <summary>
+    /// Interface represents all of the selected amd Selectable Units
+    /// </summary>
+    public interface IUnitSelections
     {
         UnitSelection<ePressure> PressureUnit { get; }
         UnitSelection<eTemperature> TempratureUnit { get; }

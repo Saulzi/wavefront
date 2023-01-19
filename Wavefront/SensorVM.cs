@@ -5,19 +5,17 @@ namespace Wavefront
 {
     public sealed class SensorVM : INotifyPropertyChanged
     {
-        public SensorReadingVm<eTemperature> Temprature { get; init; }         // What a shame the new field bit did not make it into c# 10/11
-        public SensorReadingVm<ePressure> Pressure { get; init; }
-
-        private bool _error;                
+        public SensorReadingVm<eTemperature> Temprature { get; init; }         
+        public SensorReadingVm<ePressure> Pressure { get; init; }             
 
         public event PropertyChangedEventHandler? PropertyChanged;
-
-
+        
+        private bool _error;
         public bool Error { get => _error; private set => NotifyPropertyChange(_error = value); }
 
         public int SensorId { get; }
 
-        public SensorVM(IAUVSensor sensor, ISelectedSensorUnits selectedSensorUnits)
+        public SensorVM(IAUVSensor sensor, IUnitSelections selectedSensorUnits)
         {
             if (sensor == null)
             {
@@ -40,9 +38,9 @@ namespace Wavefront
             TryUpdate(Pressure.ReadValue);
         }
 
-        private void TryUpdate(Action action)
-        {
-            try
+        private void TryUpdate(Action action)       // The Error property should perhaps be pushed down
+        {                                           // So that we display it on the reading which is bad
+            try                                     // This is good enough for now though
             {
                 action();
             }
