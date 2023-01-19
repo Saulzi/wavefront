@@ -7,18 +7,7 @@ namespace Wavefront.Tests
     [TestFixture]
     public class UnitConversionsTests
     {
-        [TestCase(0d, 32d)]
-        [TestCase(1d, 33.8d)]
-        [TestCase(5d, 41d)]
-        [TestCase(100, 212)]
-        public void ConvertDegreesToFarenheight(double oc, double of)
-        {
-            // x*(9/5)+32 
-            var result = UnitConversions.ConvertOCtoOF(oc);
-            Assert.That(result, Is.EqualTo(of).Within(0.0001d));
-        }
-
-        public record ConversionTestCase<T>(double value, eTemperature valueUnit, eTemperature outputUnit, double expectedValue);
+        public record ConversionTestCase<T>(double value, T valueUnit, T outputUnit, double expectedValue);
 
         private static IEnumerable<ConversionTestCase<eTemperature>> ConvertTempratureTestCases =>
             new ConversionTestCase<eTemperature>[]
@@ -45,39 +34,26 @@ namespace Wavefront.Tests
             Assert.That(result, Is.EqualTo(expectedValue).Within(0.0001d));
         }
 
-        [TestCase(32d, 0d)]
-        [TestCase(33.8d, 1d)]
-        [TestCase(41d, 5d)]
-        [TestCase(212d, 100d)]
-        public void ConvertFarenheightToDegrees(double of, double oc)
+        private static IEnumerable<ConversionTestCase<ePressure>> ConvertPressureTestCases =>
+            new ConversionTestCase<ePressure>[]
+            {
+                new (6.89476d, ePressure.kPa, ePressure.PSI, 1d),
+                new (6.89476d, ePressure.kPa, ePressure.kPa, 6.89476d),
+                new (68.9476d, ePressure.kPa, ePressure.PSI, 10d),
+                new (344.738, ePressure.kPa, ePressure.PSI, 50d),
+                new (1d, ePressure.PSI, ePressure.kPa, 6.89476d),
+                new (10d, ePressure.PSI, ePressure.kPa, 68.9476d),
+                new (50d, ePressure.PSI, ePressure.kPa, 344.738),
+                new (50d, ePressure.PSI, ePressure.PSI, 50d)
+            };
+
+        [TestCaseSource(nameof(ConvertPressureTestCases))]
+        public void ConvertPressure(ConversionTestCase<ePressure> testCase)
         {
+            var (value, valueUnit, outputUnit, expectedValue) = testCase;
+            var result = UnitConversions.ConvertPressure((value, valueUnit), outputUnit);
 
-            var result = UnitConversions.ConvertOFtoOC(of);
-            Assert.That(result, Is.EqualTo(oc).Within(0.0001d));
-            // (x-32)*9/5
-        }
-
-        [TestCase(6.89476d, 1d)]
-        [TestCase(68.9476d, 10d)]
-        [TestCase(344.738, 50d)]
-
-        public void ConvertkPaToPSI(double kpa, double psi)
-        {
-            // for an approximate result, divide the pressure value by 6.895
-
-            var result = UnitConversions.ConvertKPAtoPSI(kpa);
-            Assert.That(result, Is.EqualTo(psi).Within(0.02d));         // this could be tighter and these would pass but matching other val
-        }
-
-        [TestCase(1d, 6.89476d)]
-        [TestCase(10d, 68.9476d)]
-        [TestCase(50d, 344.738)]
-        public void ConvertPSIToKpa(double psi, double kpa)
-        {
-            //for an approximate result, multiply the pressure value by 6.895
-
-            var result = UnitConversions.ConvertPSItoKPA(psi);
-            Assert.That(result, Is.EqualTo(kpa).Within(0.02d));        
+            Assert.That(result, Is.EqualTo(expectedValue).Within(0.02d));
         }
     }
 }

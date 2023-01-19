@@ -4,22 +4,22 @@ namespace Wavefront
 {
     public sealed class UnitConversions
     {
-        public static double ConvertOFtoOC(double value)
+        private static double ConvertOFtoOC(double value)
         {
             return (value - 32) / 1.8;
         }
 
-        public static double ConvertOCtoOF(double value)
+        private static double ConvertOCtoOF(double value)
         {
             return value * 1.8 + 32;
         }
 
-        public static double ConvertKPAtoPSI(double value)
+        private static double ConvertKPAtoPSI(double value)
         {
             return value / 6.895d;
         }
 
-        public static double ConvertPSItoKPA(double value)
+        private static double ConvertPSItoKPA(double value)
         {
             return value * 6.895d;
         }
@@ -41,7 +41,17 @@ namespace Wavefront
 
         public static double ConvertPressure((double value, ePressure unit) value, ePressure outputUnit)
         {
-            return 0;
+            var (inputValue, inputUnit) = value;
+
+            if (inputUnit == outputUnit)
+                return inputValue;
+
+            return inputUnit switch
+            {
+                ePressure.kPa when outputUnit == ePressure.PSI => ConvertKPAtoPSI(inputValue),
+                ePressure.PSI when outputUnit == ePressure.kPa => ConvertPSItoKPA(inputValue),
+                _ => throw new InvalidOperationException()
+            };
         }
     }
 }
