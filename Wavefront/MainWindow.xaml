@@ -6,11 +6,29 @@
         xmlns:local="clr-namespace:Wavefront"
         mc:Ignorable="d"
         Title="Wavefront Interview Tom Salisbury" Height="450" Width="800">
-    <ItemsControl ItemsSource="{Binding Sensors, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <local:Sensor />
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25px" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".5*" />
+                <ColumnDefinition Width=".5*" />                
+            </Grid.ColumnDefinitions>
+
+            <local:UnitSelector Grid.Column="0" SelectionFor="Temprature" />
+            <local:UnitSelector Grid.Column="1" SelectionFor="Pressure" />
+        </Grid>
+
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Sensors, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:Sensor />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+    </Grid>
 </Window>
